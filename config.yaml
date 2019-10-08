@@ -1,4 +1,4 @@
 runtime: nodejs10.x
 tables:
-  todosTable
-  usersTable
+  - todosTable
+  - usersTable
