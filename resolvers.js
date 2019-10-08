@@ -1,12 +1,12 @@
 const todos = [
     {
         id: 11111,
-        text: "todo1",
+        text: "todo111111",
         completed: false
     },
     {
         id: 22222,
-        text: "todo2",
+        text: "todo2222222",
         completed: true
     }
 ];
