@@ -2,7 +2,7 @@ const { gql } = require("apollo-server-lambda");
 
 const typeDefs = gql`
   type Todo {
-    id: ID!
+    _id: ID!
     text: String!
     completed: Boolean!
   }

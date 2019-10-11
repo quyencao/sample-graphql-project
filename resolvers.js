@@ -1,11 +1,11 @@
 const todos = [
     {
-        id: 11111,
+        _id: 11111,
         text: "todo111111",
         completed: false
     },
     {
-        id: 22222,
+        _id: 22222,
         text: "todo2222222",
         completed: true
     }
@@ -20,7 +20,7 @@ const resolver = {
     Mutation: {
         createTodo: (_, args) => {
             const newTodo = {
-                id: Math.random().toString(),
+                _id: Math.random().toString(),
                 text: args.text,
                 completed: false
             };
