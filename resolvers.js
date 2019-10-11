@@ -4,7 +4,7 @@ const resolver = {
     Query: {
         getTodo: (_, args) => {
             return db.getTable("todosTable").getRecordById(args.id).then(todo => {
-                return todo;
+                return todo.Item
             }).catch(err => null);
         }
     },
