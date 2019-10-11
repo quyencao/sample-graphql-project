@@ -1,36 +1,22 @@
-const todos = [
-    {
-        id: 11111,
-        text: "todo111111",
-        completed: false
-    },
-    {
-        id: 22222,
-        text: "todo2222222",
-        completed: true
-    }
-];
+const db = require('./db');
 
 const resolver = {
     Query: {
-        getTodos: () => {
-            return todos;
-        },
         getTodo: (_, args) => {
-            return todos.filter(t => t.id == args.id)[0]
+            return db.getTable("todosTable").getRecordById(args.id).then(todo => {
+                return todo;
+            }).catch(err => null);
         }
     },
     Mutation: {
         createTodo: (_, args) => {
-            const newTodo = {
-                id: Math.random().toString(),
+            return db.getTable("todosTable")
+            .insertRecord({
                 text: args.text,
                 completed: false
-            };
-
-            todos.push(newTodo);
-
-            return newTodo
+            })
+            .then(data => true)
+            .catch(err => false)
         }
     }
 }

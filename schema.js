@@ -8,12 +8,11 @@ const typeDefs = gql`
   }
 
   type Query {
-    getTodos: [Todo!]
     getTodo(id: ID!): Todo
   }
 
   type Mutation {
-    createTodo(text: String!): Todo!
+    createTodo(text: String!): Boolean!
   }
 `;
 
