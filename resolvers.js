@@ -17,6 +17,24 @@ const resolver = {
             })
             .then(data => true)
             .catch(err => false)
+        },
+        deleteTodo: (_, args) => {
+            return db.getTable("todosTables")
+                .deleteRecordById(args.id)
+                .then(data => true)
+                .catch(err => false);
+        },
+        updateTodo: (_, args) => {
+            const new_data = {
+                text: args.text 
+            }
+            if (args.completed) {
+                new_data["completed"] = args.completed
+            }
+            return db.getTable("todosTables")
+                .updateRecordById(args.id, new_data)
+                .then(data => data.Attributes)
+                .catch(err => null);
         }
     }
 }
