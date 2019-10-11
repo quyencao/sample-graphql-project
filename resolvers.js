@@ -19,7 +19,7 @@ const resolver = {
             .catch(err => false)
         },
         deleteTodo: (_, args) => {
-            return db.getTable("todosTables")
+            return db.getTable("todosTable")
                 .deleteRecordById(args.id)
                 .then(data => true)
                 .catch(err => false);
@@ -31,7 +31,7 @@ const resolver = {
             if (args.completed) {
                 new_data["completed"] = args.completed
             }
-            return db.getTable("todosTables")
+            return db.getTable("todosTable")
                 .updateRecordById(args.id, new_data)
                 .then(data => data.Attributes)
                 .catch(err => null);
