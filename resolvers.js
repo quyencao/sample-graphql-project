@@ -20,8 +20,10 @@ const resolver = {
                 text: args.text,
                 completed: false
             })
-            .then(data => true)
-            .catch(err => false)
+            .then(todo => todo)
+            .catch(err => {
+                throw err;
+            })
         },
         deleteTodo: (_, args) => {
             return db.getTable("todosTable")
