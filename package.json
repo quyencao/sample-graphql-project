@@ -9,7 +9,5 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "dependencies": {
-    "aih-dynamodb": "^0.7.0"
-  }
+  "dependencies": {}
 }
