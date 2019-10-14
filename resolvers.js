@@ -6,6 +6,11 @@ const resolver = {
             return db.getTable("todosTable").getRecordById(args.id).then(todo => {
                 return todo.Item
             }).catch(err => null);
+        },
+        getTodos: (_, args) => {
+            return  db.getTable("todosTable").getRecords({}).then(data => {
+                return data.Items
+            }).catch(err => null);
         }
     },
     Mutation: {
