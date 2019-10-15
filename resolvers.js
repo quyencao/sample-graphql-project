@@ -35,7 +35,7 @@ const resolver = {
             const new_data = {
                 text: args.text 
             }
-            if (args.completed) {
+            if ('completed' in args) {
                 new_data["completed"] = args.completed
             }
             return db.getTable("todosTable")
