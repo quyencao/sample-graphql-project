@@ -2,11 +2,11 @@ const { gql } = require("apollo-server-lambda");
 
 const typeDefs = gql`
   type Mutation {
-    createTodo(input: TodoInput!): Todo
-    updateTodo(id: ID!, input: TodoInput!): Todo
+    createTodo(input: CreateTodoInput!): Todo
+    updateTodo(id: ID!, input: UpdateTodoInput!): Todo
     deleteTodo(id: ID!): Boolean
-    createUser(input: UserInput!): User
-    updateUser(id: ID!, input: UserInput!): User
+    createUser(input: CreateUserInput!): User
+    updateUser(id: ID!, input: UpdateUserInput!): User
     deleteUser(id: ID!): Boolean
   }
 
@@ -17,16 +17,28 @@ const typeDefs = gql`
     getUsers: [User!]
   }
 
-  input TodoInput {
+  input CreateTodoInput {
     text: String!
     completed: Boolean
   }
 
-  input UserInput {
+  input UpdateTodoInput {
+    text: String
+    completed: Boolean
+  }
+
+  input CreateUserInput {
     username: String!
     email: String!
     desc: String
     password: String!
+  }
+
+  input UpdateUserInput {
+    username: String
+    email: String
+    desc: String
+    password: String
   }
 
 
