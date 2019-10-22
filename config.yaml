@@ -22,9 +22,6 @@ types:
       - name: email
         type: String
         required: true
-      - name: desc
+      - name: gender
         type: String
         required: false
-      - name: password
-        type: String
-        required: true
