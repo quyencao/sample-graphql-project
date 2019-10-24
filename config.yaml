@@ -22,6 +22,3 @@ types:
       - name: email
         type: String
         required: true
-      - name: gender
-        type: String
-        required: false

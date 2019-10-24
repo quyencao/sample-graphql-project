@@ -29,13 +29,11 @@ input UpdateTodoInput {
 input CreateUserInput {
   username: String!
   email: String!
-  gender: String
 }
 
 input UpdateUserInput {
   username: String
   email: String
-  gender: String
 }
 
 type Todo {
@@ -47,7 +45,6 @@ type User {
   id: ID!
   username: String!
   email: String!
-  gender: String
 }
 `;
 
