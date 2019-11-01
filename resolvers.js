@@ -50,7 +50,7 @@ const resolver = {
 
                 const token = jwt.sign({ email: user.email }, "secretkey", { algorithm: "RS256" });
 
-                return token;
+                return { token };
             })
             .catch(err => {
                 throw err;
