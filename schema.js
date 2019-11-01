@@ -2,16 +2,21 @@ const { gql } = require("apollo-server-lambda");
 
 const typeDefs = gql`
 type Mutation {
-  register(input: RegisterUserInput!): User
+  register(input: UserInput!): User
+  login(input: UserInput!): Token
 }
 
 type Query {
   getUsers: [User!]
 }
 
-input RegisterUserInput {
+input UserInput {
   email: String!
   password: String!
+}
+
+type Token {
+  token: String!
 }
 
 type User {
