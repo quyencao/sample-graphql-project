@@ -1,3 +1,4 @@
+const bcrypt = require("bcryptjs");
 const db = require('./db');
 
 const resolver = {
@@ -13,12 +14,17 @@ const resolver = {
     },
     Mutation: {
         register: (_, args) => {
-            return db.getTable("usersTable")
-            .insertRecord({ email: args.input.email, password: args.input.password })
-            .then(data => data)
-            .catch(err => {
-                throw err;
-            })
+            return bcrypt.genSalt(10)
+                .then(salt => {
+                    return bcrypt.hash(args.input.password, salt);
+                })
+                .then(hash => {
+                    return db.getTable("usersTable").insertRecord({ email: args.input.email, password: hash });
+                })
+                .then(data => data)
+                .catch(err => {
+                    throw err;
+                })
         }
     }
 }
