@@ -16,9 +16,9 @@ types:
   - name: User
     ref: usersTable
     fields:
-      - name: username
+      - name: email
         type: String
         required: true
-      - name: email
+      - name: password
         type: String
         required: true
