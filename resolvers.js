@@ -48,9 +48,9 @@ const resolver = {
                     );
                 }
 
-                // const token = jwt.sign({ email: user.email }, "secretkey", { algorithm: "RS256" });
+                const token = jwt.sign({ email: user.email }, "secretkey", { algorithm: "HS256" });
 
-                return { token: "123" };
+                return { token: token };
             })
             .catch(err => {
                 throw err;
