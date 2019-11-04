@@ -4,18 +4,15 @@ const { AuthenticationError, UserInputError } = require("apollo-server-lambda");
 const db = require('./db');
 
 function verifyJWTToken(token) {
-  return new Promise((resolve, reject) =>
-  {
-    jwt.verify(token, "secretkey", (err, decodedToken) => 
-    {
-      if (err || !decodedToken)
-      {
-        return reject(err)
+  return new Promise((resolve, reject) => {
+    jwt.verify(token, "secretkey", (err, decodedToken) => {
+      if (err || !decodedToken) {
+        return reject(err);
       }
 
-      resolve(decodedToken)
-    })
-  })
+      resolve(decodedToken);
+    });
+  });
 }
 
 const resolver = {
