@@ -1,6 +1,6 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const { AuthenticationError } = require("apollo-server-lambda");
+const { AuthenticationError, UserInputError } = require("apollo-server-lambda");
 const db = require('./db');
 
 const resolver = {
@@ -16,17 +16,23 @@ const resolver = {
     },
     Mutation: {
         register: (_, args) => {
-            return bcrypt.genSalt(10)
-                .then(salt => {
-                    return bcrypt.hash(args.input.password, salt);
-                })
-                .then(hash => {
-                    return db.getTable("usersTable").insertRecord({ email: args.input.email, password: hash });
-                })
-                .then(data => data)
-                .catch(err => {
-                    throw err;
-                })
+            return db.getTable("usersTable").scan().only().eq("email", [args.input.email]).exec().then(data => {
+                if (data.Count > 0) {
+                    throw new UserInputError("Email is already taken");
+                }
+
+                return bcrypt.genSalt(10);
+            })
+            .then(salt => {
+                return bcrypt.hash(args.input.password, salt);
+            })
+            .then(hash => {
+                return db.getTable("usersTable").insertRecord({ email: args.input.email, password: hash });
+            })
+            .then(data => data)
+            .catch(err => {
+                throw err;
+            });
         },
         login: (_, args) => {
             let user;
