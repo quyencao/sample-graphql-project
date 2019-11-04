@@ -41,7 +41,7 @@ const resolver = {
             });;
         },
         getLoginUser: (_, args, { headers }) => {
-            const token = headers.authentication || '';
+            const token = headers.token || '';
 
             return verifyJWTToken(token)
                 .then(decodedToken => {
