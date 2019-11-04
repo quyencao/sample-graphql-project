@@ -13,10 +13,22 @@ const resolver = {
             })
             .catch(err => null);
         },
+        getUser: (_, args) => {
+            return db.getTable("usersTable").scan().only().eq("email", [args.email]).exec().then(data => {
+                if (data.Count > 0) {
+                    throw new UserInputError("Email does not exist");
+                }
+
+                return data.Items[0];
+            })
+            .catch(err => {
+                throw err;
+            });;
+        }
     },
     Mutation: {
         register: (_, args) => {
-            return db.getTable("usersTable").scan().only().eq("email", [args.input.email]).exec().then(data => {
+            return db.getTable("usersTable").scan().only().eq("email", [args.email]).exec().then(data => {
                 if (data.Count > 0) {
                     throw new UserInputError("Email is already taken");
                 }
@@ -24,10 +36,10 @@ const resolver = {
                 return bcrypt.genSalt(10);
             })
             .then(salt => {
-                return bcrypt.hash(args.input.password, salt);
+                return bcrypt.hash(args.password, salt);
             })
             .then(hash => {
-                return db.getTable("usersTable").insertRecord({ email: args.input.email, password: hash });
+                return db.getTable("usersTable").insertRecord({ email: args.email, password: hash });
             })
             .then(data => data)
             .catch(err => {
@@ -36,7 +48,7 @@ const resolver = {
         },
         login: (_, args) => {
             let user;
-            return db.getTable("usersTable").scan().only().eq("email", [args.input.email]).exec().then(data => {
+            return db.getTable("usersTable").scan().only().eq("email", [args.email]).exec().then(data => {
                 if (data.Count == 0) {
                     throw new AuthenticationError(
                         'No user found with this login credentials.',
@@ -45,7 +57,7 @@ const resolver = {
 
                 user = data.Items[0]
 
-                return bcrypt.compare(args.input.password, user.password);
+                return bcrypt.compare(args.password, user.password);
             })
             .then(result => {
                 if (!result) {
@@ -54,9 +66,9 @@ const resolver = {
                     );
                 }
 
-                const token = jwt.sign({ email: user.email }, "secretkey", { algorithm: "HS256" });
+                const token = jwt.sign({ email: user.email }, "secretkey", { algorithm: "HS256", expiresIn: "1h" });
 
-                return { token: token };
+                return { token };
             })
             .catch(err => {
                 throw err;
