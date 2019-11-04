@@ -42,10 +42,7 @@ const resolver = {
 
             return verifyJWTToken(token)
                 .then(decodedToken => {
-                    return decodedToken.email;
-                })
-                .then(email => {
-                    return db.getTable("usersTable").scan().only().eq("email", [email]).exec();
+                    return db.getTable("usersTable").scan().only().eq("email", [decodedToken.email]).exec();
                 })
                 .then(data => {
                     if (data.Count == 0) {
