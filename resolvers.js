@@ -3,6 +3,21 @@ const jwt = require("jsonwebtoken");
 const { AuthenticationError, UserInputError } = require("apollo-server-lambda");
 const db = require('./db');
 
+function verifyJWTToken(token) {
+  return new Promise((resolve, reject) =>
+  {
+    jwt.verify(token, "secretkey", (err, decodedToken) => 
+    {
+      if (err || !decodedToken)
+      {
+        return reject(err)
+      }
+
+      resolve(decodedToken)
+    })
+  })
+}
+
 const resolver = {
     Query: {
         getUsers: (_, args) => {
@@ -24,6 +39,31 @@ const resolver = {
             .catch(err => {
                 throw err;
             });;
+        },
+        getLoginUser: (_, args, context) => {
+            const token = context.req.headers.authentication || '';
+
+            return verifyJWTToken(token)
+                .then(decodedToken => {
+                    return decodedToken.email;
+                })
+                .then(email => {
+                    return db.getTable("usersTable").scan().only().eq("email", [email]).exec();
+                })
+                .then(data => {
+                    if (data.Count == 0) {
+                        throw new AuthenticationError(
+                            'Your session expired. Login again.',
+                        );
+                    }
+
+                    return data.Items[0];
+                })
+                .catch(err => {
+                    throw new AuthenticationError(
+                        'Your session expired. Login again.',
+                    );
+                });
         }
     },
     Mutation: {
