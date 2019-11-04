@@ -15,7 +15,7 @@ const resolver = {
         },
         getUser: (_, args) => {
             return db.getTable("usersTable").scan().only().eq("email", [args.email]).exec().then(data => {
-                if (data.Count > 0) {
+                if (data.Count === 0) {
                     throw new UserInputError("Email does not exist");
                 }
 
