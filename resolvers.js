@@ -40,8 +40,8 @@ const resolver = {
                 throw err;
             });;
         },
-        getLoginUser: (_, args, context) => {
-            const token = context.req.headers.authentication || '';
+        getLoginUser: (_, args, { headers }) => {
+            const token = headers.authentication || '';
 
             return verifyJWTToken(token)
                 .then(decodedToken => {
