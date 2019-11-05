@@ -1,36 +1,36 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
-const fs = require("fs");
-const path = require("path");
-const { MQTTPubSub } = require("graphql-mqtt-subscriptions");
-const { connect } = require("mqtt");
+// const fs = require("fs");
+// const path = require("path");
+// const { MQTTPubSub } = require("graphql-mqtt-subscriptions");
+// const { connect } = require("mqtt");
 const { AuthenticationError, UserInputError } = require("apollo-server-lambda");
 const db = require('./db');
 
-const client = connect("mqtt://agrh2cakrugz9-ats.iot.us-east-1.amazonaws.com", {
-    clientId: "graphqltestgroup_Core-c01",
-    port: 8883,
-    protocol: "mqtt",
-    key: fs.readFileSync("./683d04f224.private.key", "utf8"),
-    cert: fs.readFileSync("./683d04f224.cert.pem", "utf8"),
-    ca: fs.readFileSync("./root.ca.pem", "utf8")
-});
+// const client = connect("mqtt://agrh2cakrugz9-ats.iot.us-east-1.amazonaws.com", {
+//     clientId: "graphqltestgroup_Core-c01",
+//     port: 8883,
+//     protocol: "mqtt",
+//     key: fs.readFileSync("./683d04f224.private.key", "utf8"),
+//     cert: fs.readFileSync("./683d04f224.cert.pem", "utf8"),
+//     ca: fs.readFileSync("./root.ca.pem", "utf8")
+// });
 
 // const pubsub = new MQTTPubSub({
 //     client
 // });
 
-function verifyJWTToken(token) {
-  return new Promise((resolve, reject) => {
-    jwt.verify(token, "secretkey", (err, decodedToken) => {
-      if (err || !decodedToken) {
-        return reject(err);
-      }
+// function verifyJWTToken(token) {
+//   return new Promise((resolve, reject) => {
+//     jwt.verify(token, "secretkey", (err, decodedToken) => {
+//       if (err || !decodedToken) {
+//         return reject(err);
+//       }
 
-      resolve(decodedToken);
-    });
-  });
-}
+//       resolve(decodedToken);
+//     });
+//   });
+// }
 
 const resolver = {
     Query: {
