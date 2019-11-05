@@ -125,14 +125,14 @@ const resolver = {
             });
         }
     },
-    Subscription: {
-        subscribe2message: {
-            resolve: (payload) => {
-                return payload;
-            },
-            subscribe: (_, args) => pubsub.asyncIterator(args.topic)
-        }
-    }
+    // Subscription: {
+    //     subscribe2message: {
+    //         resolve: (payload) => {
+    //             return payload;
+    //         },
+    //         subscribe: (_, args) => pubsub.asyncIterator(args.topic)
+    //     }
+    // }
 }
 
 module.exports = resolver;
