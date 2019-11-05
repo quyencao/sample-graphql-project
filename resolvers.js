@@ -1,5 +1,6 @@
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const fs = require("fs");
 const { MQTTPubSub } = require("graphql-mqtt-subscriptions");
 const { connect } = require("mqtt");
 const { AuthenticationError, UserInputError } = require("apollo-server-lambda");
