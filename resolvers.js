@@ -20,17 +20,17 @@ const db = require('./db');
 //     client
 // });
 
-// function verifyJWTToken(token) {
-//   return new Promise((resolve, reject) => {
-//     jwt.verify(token, "secretkey", (err, decodedToken) => {
-//       if (err || !decodedToken) {
-//         return reject(err);
-//       }
+function verifyJWTToken(token) {
+  return new Promise((resolve, reject) => {
+    jwt.verify(token, "secretkey", (err, decodedToken) => {
+      if (err || !decodedToken) {
+        return reject(err);
+      }
 
-//       resolve(decodedToken);
-//     });
-//   });
-// }
+      resolve(decodedToken);
+    });
+  });
+}
 
 const resolver = {
     Query: {
