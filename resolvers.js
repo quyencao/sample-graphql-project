@@ -11,9 +11,9 @@ const client = connect("mqtt://agrh2cakrugz9-ats.iot.us-east-1.amazonaws.com", {
     clientId: "graphqltestgroup_Core-c01",
     port: 8883,
     protocol: "mqtt",
-    key: fs.readFileSync(path.resolve(__dirname, "certs", "683d04f224.private.key"), "utf8"),
-    cert: fs.readFileSync(path.resolve(__dirname, "certs", "683d04f224.cert.pem"), "utf8"),
-    ca: fs.readFileSync(path.resolve(__dirname, "certs", "root.ca.pem"), "utf8")
+    key: fs.readFileSync("./683d04f224.private.key", "utf8"),
+    cert: fs.readFileSync("./683d04f224.cert.pem", "utf8"),
+    ca: fs.readFileSync("./root.ca.pem", "utf8")
 });
 
 // const pubsub = new MQTTPubSub({
