@@ -130,7 +130,7 @@ const resolver = {
             resolve: (payload) => {
                 return payload;
             },
-            subscribe: (_, args) => pubsub.asyncIterator([args.topic])
+            subscribe: (_, args) => pubsub.asyncIterator(args.topic)
         }
     }
 }
