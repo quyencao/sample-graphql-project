@@ -125,15 +125,7 @@ const resolver = {
                 throw err;
             });
         }
-    },
-    // Subscription: {
-    //     subscribe2message: {
-    //         resolve: (payload) => {
-    //             return payload;
-    //         },
-    //         subscribe: (_, args) => pubsub.asyncIterator(args.topic)
-    //     }
-    // }
+    }
 }
 
 module.exports = resolver;

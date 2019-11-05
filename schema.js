@@ -12,14 +12,6 @@ type Query {
   getLoginUser: User!
 }
 
-# type Subscription {
-#   subscribe2message(topic: String!): Message!
-# }
-
-# type Message {
-#   message: String!
-# }
-
 type Token {
   token: String!
 }
