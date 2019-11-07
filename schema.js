@@ -7,9 +7,9 @@ type Mutation {
 }
 
 type Query {
-  getUsers: [User!]
-  getUser(email: String!): User!
-  getLoginUser: User!
+  # getUsers: [User!]
+  # getUser(email: String!): User!
+  getCurrentUser: User!
 }
 
 type Token {

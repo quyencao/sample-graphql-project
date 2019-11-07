@@ -34,27 +34,27 @@ function verifyJWTToken(token) {
 
 const resolver = {
     Query: {
-        getUsers: (_, args) => {
-            return  db.getTable("usersTable")
-            .getRecords({})
-            .then(data => {
-                return data.Items
-            })
-            .catch(err => null);
-        },
-        getUser: (_, args) => {
-            return db.getTable("usersTable").scan().only().eq("email", [args.email]).exec().then(data => {
-                if (data.Count === 0) {
-                    throw new UserInputError("User does not exist");
-                }
+        // getUsers: (_, args) => {
+        //     return  db.getTable("usersTable")
+        //     .getRecords({})
+        //     .then(data => {
+        //         return data.Items
+        //     })
+        //     .catch(err => null);
+        // },
+        // getUser: (_, args) => {
+        //     return db.getTable("usersTable").scan().only().eq("email", [args.email]).exec().then(data => {
+        //         if (data.Count === 0) {
+        //             throw new UserInputError("User does not exist");
+        //         }
 
-                return data.Items[0];
-            })
-            .catch(err => {
-                throw err;
-            });;
-        },
-        getLoginUser: (_, args, { headers }) => {
+        //         return data.Items[0];
+        //     })
+        //     .catch(err => {
+        //         throw err;
+        //     });;
+        // },
+        getCurrentUser: (_, args, { headers }) => {
             const token = headers.token || '';
 
             return verifyJWTToken(token)
